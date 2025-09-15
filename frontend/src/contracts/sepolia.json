@@ -2,7 +2,7 @@
   "network": "sepolia",
   "contractAddress": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
   "deployer": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
-  "deploymentTime": "2025-09-15T11:12:02.024Z",
+  "deploymentTime": "2025-09-15T13:33:19.168Z",
   "blockNumber": 2,
   "transactionHash": "0xbc58afafd396c2ef3225574eb78aeab4f53dce9f22f9a7c2dc885731e81c8e40",
   "gasUsed": "202456",

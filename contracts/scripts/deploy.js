@@ -19,6 +19,7 @@ async function main() {
     const Voting = await ethers.getContractFactory('Voting');
     const voting = await upgrades.deployProxy(Voting, [], {
         initializer: 'initialize',
+        kind: 'uups',
     });
     await voting.waitForDeployment();
     const address = await voting.getAddress();

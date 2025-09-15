@@ -1,3 +1,4 @@
+require("@nomicfoundation/hardhat-chai-matchers");
 require('@nomicfoundation/hardhat-toolbox');
 require('@nomicfoundation/hardhat-verify');
 require('@openzeppelin/hardhat-upgrades');
@@ -53,4 +54,8 @@ module.exports = {
             gasPrice: 30000000000, // 30 gwei
         },
     },
+    gasReporter: {
+        enabled: true,
+        currency: 'USD',
+    }
 };

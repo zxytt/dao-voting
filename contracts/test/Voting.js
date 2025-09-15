@@ -5,9 +5,9 @@ const { time } = require('@nomicfoundation/hardhat-network-helpers');
 describe('Voting', function () {
     async function deployVoting() {
         const Voting = await ethers.getContractFactory('Voting');
-        const votingDuration = 86400; // 24小时
-        const voting = await upgrades.deployProxy(Voting, [votingDuration], {
+        const voting = await upgrades.deployProxy(Voting, [], {
             initializer: 'initialize',
+            kind: 'uups',
         });
         await voting.waitForDeployment();
 
