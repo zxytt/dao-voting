@@ -1,0 +1,3 @@
+-   初始化 hardhat 项目 npx hardhat --init
+-   初始化 react 项目 npx create-react-app my-app
+-   初始化 next 项目 npx create-next-app my-app
