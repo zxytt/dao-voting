@@ -6,7 +6,8 @@ task('generate-abi', 'Generate ABI from contract').setAction(
     async (taskArgs, hre) => {
         console.log('开始生成ABI文件...');
         const contractsToGenerate = [
-            { contractName: 'Voting', contractFile: 'Voting' },
+            // { contractName: 'Voting', contractFile: 'Voting' },
+            { contractName: 'VotingV2', contractFile: 'VotingV2' },
         ];
 
         const outputDir = '../frontend/src/contracts/abi'; // 前端项目中的 ABI 输出目录

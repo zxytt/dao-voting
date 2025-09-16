@@ -3,7 +3,7 @@
 import { useAccount, useWriteContract, useSimulateContract } from 'wagmi';
 import { useState } from 'react';
 // import { VOTING_ABI } from '../../contracts/abi/VotingABI';
-import VOTING_ABI from '../../contracts/abi/VotingABI.json';
+import VOTING_ABI from '../../contracts/abi/VotingV2ABI.json';
 import contractData from '../../contracts/sepolia.json';
 
 export default function CreateProposal() {

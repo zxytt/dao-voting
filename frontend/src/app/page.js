@@ -5,7 +5,8 @@ import ProposalList from './components/ProposalList';
 import CreateProposal from './components/CreateProposal';
 import VoterManagement from './components/VoterManagement';
 import { useReadContract } from 'wagmi';
-import { VOTING_ABI } from '../contracts/abi/VotingABI';
+// import { VOTING_ABI } from '../contracts/abi/VotingABI';
+import VOTING_ABI from '../contracts/abi/VotingV2ABI.json';
 import contractData from '../contracts/sepolia.json';
 
 export default function Home() {

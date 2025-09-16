@@ -1,16 +1,35 @@
+'use client';
+import React, { useState } from 'react';
 import { useReadContract } from 'wagmi';
 // import { VOTING_ABI } from '../../contracts/abi/VotingABI';
-import VOTING_ABI from '../../contracts/abi/VotingABI.json';
+import VOTING_ABI from '../../contracts/abi/VotingV2ABI.json';
 import contractData from '../../contracts/sepolia.json';
+// import { useQuery, gql } from '@apollo/client';
 
 export default function ProposalList() {
     const contractAddress = contractData.contractAddress;
-    const { data: proposals, isLoading } = useReadContract({
+    // 读取提案列表
+    const [proposals, setProposals] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const { data } = useReadContract({
         address: contractAddress,
         abi: VOTING_ABI,
         functionName: 'getAllProposals',
-        watch: true,
     });
+    console.log('data', data);
+    // const { data: proposals, refetch } = useQuery(GET_PROPOSALS);
+
+    // const GET_PROPOSALS = gql`
+    //     query GetProposals {
+    //         proposals(first: 100, orderBy: id, orderDirection: desc) {
+    //             id
+    //             description
+    //             voteCount
+    //             deadline
+    //             executed
+    //         }
+    //     }
+    // `;
 
     if (isLoading) return <div>Loading proposals...</div>;
 

@@ -3,7 +3,7 @@
 import { useAccount, useWriteContract, useSimulateContract } from 'wagmi';
 import { useState } from 'react';
 // import { VOTING_ABI } from '../../contracts/abi/VotingABI';
-import VOTING_ABI from '../../contracts/abi/VotingABI.json';
+import VOTING_ABI from '../../contracts/abi/VotingV2ABI.json';
 import contractData from '../../contracts/sepolia.json';
 
 export default function VoterManagement() {
@@ -31,10 +31,17 @@ export default function VoterManagement() {
     const { writeContract, isPending } = useWriteContract();
 
     const handleAddVoter = () => {
-        if (!simulation?.request) return;
+        // if (!simulation?.request) return;
 
-        // 直接调用 writeContract 并传入 request
-        writeContract(simulation.request);
+        // // 直接调用 writeContract 并传入 request
+        // writeContract(simulation.request);
+
+        writeContract({
+            address: contractAddress,
+            abi: VOTING_ABI,
+            functionName: 'addVoter',
+            args: [newVoter],
+        });
     };
 
     if (!isConnected) return null;
@@ -54,7 +61,8 @@ export default function VoterManagement() {
             />
             <button
                 onClick={handleAddVoter}
-                disabled={!simulation?.request || isPending}
+                // disabled={!simulation?.request || isPending}
+                disabled={!newVoter || isPending}
                 className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded disabled:bg-gray-400"
             >
                 {isPending ? 'Adding...' : 'Add Voter'}
