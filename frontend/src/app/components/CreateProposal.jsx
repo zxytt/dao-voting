@@ -1,28 +1,37 @@
-'use client'
+'use client';
 
-import { useAccount, useWriteContract, usePrepareContractWrite } from 'wagmi';
+import { useAccount, useWriteContract, useSimulateContract } from 'wagmi';
 import { useState } from 'react';
-import { VOTING_ABI } from '../../contracts/abi/VotingABI';
-import contractData from '../../contracts/sepolia.json'
+// import { VOTING_ABI } from '../../contracts/abi/VotingABI';
+import VOTING_ABI from '../../contracts/abi/VotingABI.json';
+import contractData from '../../contracts/sepolia.json';
 
 export default function CreateProposal() {
     const { address, isConnected } = useAccount();
     const [description, setDescription] = useState('');
-    const contractAddress = contractData.address;
 
-    const { config } = usePrepareContractWrite({
+    const contractAddress = contractData.contractAddress;
+
+    const { data: simulation, isLoading: isSimulating } = useSimulateContract({
         address: contractAddress,
         abi: VOTING_ABI,
         functionName: 'createProposal',
         args: [description],
-        enabled: Boolean(description && isConnected),
+        query: {
+            enabled: isConnected && description.length > 0, // 仅在条件满足时模拟
+        },
     });
 
-    const { write, isLoading } = useWriteContract(config);
+    console.log('CreateProposal simulation', simulation);
+
+    const { writeContract, isPending } = useWriteContract();
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (write) write();
+
+        if (!simulation?.request) return;
+
+        writeContract(simulation.request);
     };
 
     if (!isConnected) return null;
@@ -40,11 +49,18 @@ export default function CreateProposal() {
             />
             <button
                 type="submit"
-                disabled={!write || isLoading}
+                disabled={!simulation?.request || isPending}
                 className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded disabled:bg-gray-400"
             >
-                {isLoading ? 'Creating...' : 'Create Proposal'}
+                {isPending ? 'Creating...' : 'Create Proposal'}
             </button>
+
+            {/* 可选：显示模拟错误 */}
+            {simulation?.result === undefined && description && (
+                <p className="text-red-500 text-sm mt-2">
+                    Error: Cannot create proposal.
+                </p>
+            )}
         </form>
     );
 }

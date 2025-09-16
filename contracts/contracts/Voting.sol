@@ -18,7 +18,7 @@ contract Voting is Initializable, OwnableUpgradeable, UUPSUpgradeable {
     mapping(address => bool) public voters; // 是否为投票者
 
     uint256 public proposalCount; // 提案数量
-    uint256 immutable  votingDuration; // 投票持续时间（秒）
+    uint256 public votingDuration; // 投票持续时间（秒）
 
     event ProposalCreated(uint256 indexed id, string description, uint256 deadline); // 创建提案事件
     event Voted(uint256 indexed proposalId, address indexed voter, uint256 voteCount); // 投票事件

@@ -1,8 +1,9 @@
+'use client';
+
 import '@rainbow-me/rainbowkit/styles.css';
 import { getDefaultConfig, RainbowKitProvider } from '@rainbow-me/rainbowkit';
-import { http } from 'viem';
 import { mainnet, sepolia, polygon } from 'wagmi/chains';
-import { WagmiProvider } from 'wagmi';
+import { WagmiProvider, http } from 'wagmi';
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 
 // 使用 Sepolia 测试网
@@ -14,7 +15,9 @@ export const config = getDefaultConfig({
     chains,
     ssr: true,
     transports: {
-        [sepolia.id]: http(),
+        [sepolia.id]: http(
+            `https://sepolia.infura.io/v3/02b0923c2cb8420f991d9b232bea0b35`
+        ),
     },
 });
 
